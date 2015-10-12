@@ -50,6 +50,8 @@ iOS Client
 Release Notes
 
 Unimplemented Features
+•	A cleanup pass needs to happen with the code to clean up, remove unwanted comments and superfluous code.  Add additional bounds checkings, and etc.
+•	Tests not added.
 •	Detail Movie Review screen could be polished more.  Only a basic implementation is in place.
 •	Login screen could use more polish and improvements (see below).
 •	Launch screen is basic and could use improvements.
