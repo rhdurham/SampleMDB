@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC35CEC01BCBC4A80008B6C5 /* MovieReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC35CEBF1BCBC4A80008B6C5 /* MovieReviewTableCell.m */; settings = {ASSET_TAGS = (); }; };
+		DC35CEC31BCC29CE0008B6C5 /* ReadMe.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */; settings = {ASSET_TAGS = (); }; };
+		DC74B2BE1BC8FAD400C92BB8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC74B2BD1BC8FAD400C92BB8 /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
 		DCA96A641BC6F6240041CFD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A631BC6F6240041CFD7 /* main.m */; };
 		DCA96A671BC6F6240041CFD7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A661BC6F6240041CFD7 /* AppDelegate.m */; };
 		DCA96A6A1BC6F6250041CFD7 /* SampleMDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A681BC6F6250041CFD7 /* SampleMDB.xcdatamodeld */; };
@@ -17,6 +20,8 @@
 		DCA96A781BC6F6250041CFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCA96A761BC6F6250041CFD7 /* LaunchScreen.storyboard */; };
 		DCA96A831BC6F6250041CFD7 /* SampleMDBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A821BC6F6250041CFD7 /* SampleMDBTests.m */; };
 		DCA96A8E1BC6F6250041CFD7 /* SampleMDBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A8D1BC6F6250041CFD7 /* SampleMDBUITests.m */; };
+		DCA96A9F1BC723F90041CFD7 /* MovieReview+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A9C1BC723F90041CFD7 /* MovieReview+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		DCA96AA01BC723F90041CFD7 /* MovieReview.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A9E1BC723F90041CFD7 /* MovieReview.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC35CEBE1BCBC4A80008B6C5 /* MovieReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieReviewTableCell.h; sourceTree = "<group>"; };
+		DC35CEBF1BCBC4A80008B6C5 /* MovieReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieReviewTableCell.m; sourceTree = "<group>"; };
+		DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReadMe.rtf; sourceTree = "<group>"; };
+		DC74B2BC1BC8FAD400C92BB8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		DC74B2BD1BC8FAD400C92BB8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		DCA96A5F1BC6F6240041CFD7 /* SampleMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA96A631BC6F6240041CFD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DCA96A651BC6F6240041CFD7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,6 +66,10 @@
 		DCA96A891BC6F6250041CFD7 /* SampleMDBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleMDBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA96A8D1BC6F6250041CFD7 /* SampleMDBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleMDBUITests.m; sourceTree = "<group>"; };
 		DCA96A8F1BC6F6250041CFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCA96A9B1BC723F90041CFD7 /* MovieReview+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MovieReview+CoreDataProperties.h"; sourceTree = "<group>"; };
+		DCA96A9C1BC723F90041CFD7 /* MovieReview+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MovieReview+CoreDataProperties.m"; sourceTree = "<group>"; };
+		DCA96A9D1BC723F90041CFD7 /* MovieReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieReview.h; sourceTree = "<group>"; };
+		DCA96A9E1BC723F90041CFD7 /* MovieReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieReview.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +97,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC35CEC11BCC29410008B6C5 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
 		DCA96A561BC6F6240041CFD7 = {
 			isa = PBXGroup;
 			children = (
+				DC35CEC11BCC29410008B6C5 /* Documentation */,
 				DCA96A611BC6F6240041CFD7 /* SampleMDB */,
 				DCA96A811BC6F6250041CFD7 /* SampleMDBTests */,
 				DCA96A8C1BC6F6250041CFD7 /* SampleMDBUITests */,
@@ -106,6 +129,12 @@
 		DCA96A611BC6F6240041CFD7 /* SampleMDB */ = {
 			isa = PBXGroup;
 			children = (
+				DC35CEBE1BCBC4A80008B6C5 /* MovieReviewTableCell.h */,
+				DC35CEBF1BCBC4A80008B6C5 /* MovieReviewTableCell.m */,
+				DCA96A9B1BC723F90041CFD7 /* MovieReview+CoreDataProperties.h */,
+				DCA96A9C1BC723F90041CFD7 /* MovieReview+CoreDataProperties.m */,
+				DCA96A9D1BC723F90041CFD7 /* MovieReview.h */,
+				DCA96A9E1BC723F90041CFD7 /* MovieReview.m */,
 				DCA96A651BC6F6240041CFD7 /* AppDelegate.h */,
 				DCA96A661BC6F6240041CFD7 /* AppDelegate.m */,
 				DCA96A6B1BC6F6250041CFD7 /* MasterViewController.h */,
@@ -117,6 +146,8 @@
 				DCA96A761BC6F6250041CFD7 /* LaunchScreen.storyboard */,
 				DCA96A791BC6F6250041CFD7 /* Info.plist */,
 				DCA96A681BC6F6250041CFD7 /* SampleMDB.xcdatamodeld */,
+				DC74B2BC1BC8FAD400C92BB8 /* LoginViewController.h */,
+				DC74B2BD1BC8FAD400C92BB8 /* LoginViewController.m */,
 				DCA96A621BC6F6240041CFD7 /* Supporting Files */,
 			);
 			path = SampleMDB;
@@ -215,6 +246,7 @@
 				TargetAttributes = {
 					DCA96A5E1BC6F6240041CFD7 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = Y437N4JPH6;
 					};
 					DCA96A7D1BC6F6250041CFD7 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -253,6 +285,7 @@
 			files = (
 				DCA96A781BC6F6250041CFD7 /* LaunchScreen.storyboard in Resources */,
 				DCA96A751BC6F6250041CFD7 /* Assets.xcassets in Resources */,
+				DC35CEC31BCC29CE0008B6C5 /* ReadMe.rtf in Resources */,
 				DCA96A731BC6F6250041CFD7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,9 +311,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC74B2BE1BC8FAD400C92BB8 /* LoginViewController.m in Sources */,
+				DC35CEC01BCBC4A80008B6C5 /* MovieReviewTableCell.m in Sources */,
+				DCA96A9F1BC723F90041CFD7 /* MovieReview+CoreDataProperties.m in Sources */,
 				DCA96A701BC6F6250041CFD7 /* DetailViewController.m in Sources */,
 				DCA96A6D1BC6F6250041CFD7 /* MasterViewController.m in Sources */,
 				DCA96A671BC6F6240041CFD7 /* AppDelegate.m in Sources */,
+				DCA96AA01BC723F90041CFD7 /* MovieReview.m in Sources */,
 				DCA96A6A1BC6F6250041CFD7 /* SampleMDB.xcdatamodeld in Sources */,
 				DCA96A641BC6F6240041CFD7 /* main.m in Sources */,
 			);
@@ -423,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SampleMDB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhdurham.SampleMDB;
@@ -434,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SampleMDB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhdurham.SampleMDB;
@@ -508,6 +547,7 @@
 				DCA96A941BC6F6250041CFD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DCA96A951BC6F6250041CFD7 /* Build configuration list for PBXNativeTarget "SampleMDBTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +556,7 @@
 				DCA96A971BC6F6250041CFD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DCA96A981BC6F6250041CFD7 /* Build configuration list for PBXNativeTarget "SampleMDBUITests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +565,7 @@
 				DCA96A9A1BC6F6250041CFD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

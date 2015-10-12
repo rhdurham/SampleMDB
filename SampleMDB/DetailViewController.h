@@ -11,7 +11,13 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) id detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UITextField *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *detailImageView;
+@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet UITextField *detailRatingLabel;
+@property (weak, nonatomic) IBOutlet UITextField *detailImageURLLabel;
+
+- (IBAction)toggleEdit:(id)sender;
 
 @end
 

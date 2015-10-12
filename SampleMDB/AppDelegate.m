@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 #import "MasterViewController.h"
+#import "LoginViewController.h"
+
+#import "MovieReview.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -27,7 +30,40 @@
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
+    
+    /////////////////////
+    // Testing read from json server
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = (LoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Login"];
+    
+    // Push login controller
+    [MovieReview observeRESTAuthenticationSuccessNotification:self target:@selector(applicationDidAuthenticate:)];
+    [self.window makeKeyAndVisible];
+    [self.window.rootViewController presentViewController:loginViewController
+                                                 animated:YES completion:nil];
+    
+//    self.restURL = [NSURL URLWithString:@"http://localhost:8000/"];
+//    
+//    [MovieReview load:self.restURL
+//              context:[self managedObjectContext]
+//         mergeChanges:true];
+//    
+    // End testing read from json server
+    /////////////////////
+    
     return YES;
+}
+
+- (void)applicationDidAuthenticate:(NSNotification *)authenticationNotification
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSURL *restURL = [NSURL URLWithString:[defaults objectForKey:@"serviceURL"]];
+
+    [MovieReview load:restURL
+              context:[self managedObjectContext]
+         mergeChanges:true];
+
+    return;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -51,6 +87,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
+    
+    
     [self saveContext];
 }
 
@@ -135,6 +173,18 @@
 - (void)saveContext {
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
+        // Handle rest syncing
+        NSSet *deletedObjects = [managedObjectContext deletedObjects];
+        [deletedObjects makeObjectsPerformSelector:@selector(restDelete)];
+        
+        NSSet *insertedObjects = [managedObjectContext insertedObjects];
+        [insertedObjects makeObjectsPerformSelector:@selector(restPost:)
+                                         withObject:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"serviceURL"]]];
+        NSSet *updatedObjects = [managedObjectContext updatedObjects];
+        [updatedObjects makeObjectsPerformSelector:@selector(restPut)];
+        // TODO: loop through and run restDELETE, restPOST, restPUT
+        
+        
         NSError *error = nil;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.

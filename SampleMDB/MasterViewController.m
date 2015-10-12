@@ -9,7 +9,15 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
+#import "AppDelegate.h"
+
+#import "MovieReview.h"
+#import "MovieReviewTableCell.h"
+
 @interface MasterViewController ()
+{
+    NSArray *filteredMovieReviews;
+}
 
 @end
 
@@ -42,8 +50,19 @@
         
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-        
+    [newManagedObject setValue:[NSDate date] forKey:@"modificationDate"];
+    [newManagedObject setValue:@"New Title" forKey:@"movieName"];
+    //[newManagedObject setValue:@"http://private-05248-rottentomatoes.apiary-mock.com" forKey:@"url"];
+    [newManagedObject setValue:@"http://stickylipsbbq.com/stickylips/wp-content/uploads/2012/03/new2.jpg" forKey:@"imageUrl"];
+    [newManagedObject setValue:@"For now is the time for all good men to come to the aid of their country."
+                        forKey:@"movieDescription"];
+    [newManagedObject setValue:@"NR" forKey:@"rating"];
+    
+    // Create in service
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //[newManagedObject restPost:[(AppDelegate *)[[UIApplication sharedApplication] delegate] restURL]];
+    [newManagedObject restPost:[NSURL URLWithString:[defaults objectForKey:@"serviceURL"]]];
+
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
@@ -51,6 +70,9 @@
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
+    } else {
+        // Sync to service
+        
     }
 }
 
@@ -59,28 +81,62 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSManagedObject *object;
+        if (self.searchDisplayController.active  == NO)
+            object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        else
+            object = [filteredMovieReviews objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
+        controller.navigationItem.title = [object valueForKey:@"movieName"];
+        
+        
+        UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [editButton addTarget:controller action:@selector(toggleEdit:) forControlEvents:UIControlEventTouchDown];
+        [editButton setFrame:CGRectMake(0,0,53,31)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(3,5,50,20)];
+        [label setFont:[UIFont fontWithName:@"Arial-MT" size:16]];
+        [label setText:@"Edit"];
+        label.textAlignment = UITextAlignmentCenter;
+        [label setTextColor:[UIColor blueColor]];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [editButton addSubview:label];
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+        
+        controller.navigationItem.rightBarButtonItem = barButton;
     }
 }
 
 #pragma mark - Table View
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 71;
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    NSInteger numberOfRows = 0;
+    if (tableView == self.tableView) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+        numberOfRows = [sectionInfo numberOfObjects];
+    } else {
+        numberOfRows = filteredMovieReviews.count;
+    }
+        
+    return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MovieReviewTableCell" forIndexPath:indexPath];
+    [self configureCell:cell tableView:tableView atIndexPath:indexPath];
     return cell;
 }
 
@@ -92,7 +148,12 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [managedObject restDelete];
+        [context deleteObject:managedObject];
+        
+        /////////////////
+        // Delete here from  REST service
             
         NSError *error = nil;
         if (![context save:&error]) {
@@ -104,9 +165,31 @@
     }
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+- (void)configureCell:(UITableViewCell *)cell tableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *object;
+    if (tableView == self.tableView)
+        object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    else
+        object = [filteredMovieReviews objectAtIndex:indexPath.row];
+    
+    NSString *imageUrl = [object valueForKey:@"imageUrl"];
+    UIImage *image = nil;
+    if (imageUrl) {
+        NSURL *nsUrl = [NSURL URLWithString:imageUrl];
+        NSData *imageData = [NSData dataWithContentsOfURL:nsUrl];
+        image = [UIImage imageWithData:imageData];
+    }
+
+    if ([cell isMemberOfClass:[MovieReviewTableCell class]]) {
+        ((MovieReviewTableCell *)cell).nameLabel.text = [object valueForKey:@"movieName"];
+        ((MovieReviewTableCell *)cell).ratingLabel.text = [object valueForKey:@"rating"];
+        if (image)
+            ((MovieReviewTableCell *)cell).thumbnailImageView.image = image;
+    } else {
+        cell.textLabel.text = [[object valueForKey:@"movieName"] description];
+        if (image)
+            cell.imageView.image = image;
+    }
 }
 
 #pragma mark - Fetched results controller
@@ -119,20 +202,20 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MovieReview" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"movieName" ascending:NO];
 
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Movies"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -185,7 +268,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] tableView:tableView atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -209,5 +292,28 @@
     [self.tableView reloadData];
 }
  */
+
+
+////////////////////////////
+// Search bar functionality
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"movieName contains[c] %@", searchText];
+    NSArray *movieReviews = self.fetchedResultsController.fetchedObjects;
+    filteredMovieReviews = [movieReviews filteredArrayUsingPredicate:resultPredicate];
+}
+
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
 
 @end
