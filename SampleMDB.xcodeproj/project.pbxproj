@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DC35CEC01BCBC4A80008B6C5 /* MovieReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC35CEBF1BCBC4A80008B6C5 /* MovieReviewTableCell.m */; settings = {ASSET_TAGS = (); }; };
 		DC35CEC31BCC29CE0008B6C5 /* ReadMe.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */; settings = {ASSET_TAGS = (); }; };
+		DC4462B51BCC4D0300F4CEE5 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC4462B41BCC4D0300F4CEE5 /* ReadMe.txt */; settings = {ASSET_TAGS = (); }; };
 		DC74B2BE1BC8FAD400C92BB8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC74B2BD1BC8FAD400C92BB8 /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
 		DCA96A641BC6F6240041CFD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A631BC6F6240041CFD7 /* main.m */; };
 		DCA96A671BC6F6240041CFD7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA96A661BC6F6240041CFD7 /* AppDelegate.m */; };
@@ -45,6 +46,7 @@
 		DC35CEBE1BCBC4A80008B6C5 /* MovieReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieReviewTableCell.h; sourceTree = "<group>"; };
 		DC35CEBF1BCBC4A80008B6C5 /* MovieReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieReviewTableCell.m; sourceTree = "<group>"; };
 		DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReadMe.rtf; sourceTree = "<group>"; };
+		DC4462B41BCC4D0300F4CEE5 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		DC74B2BC1BC8FAD400C92BB8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		DC74B2BD1BC8FAD400C92BB8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		DCA96A5F1BC6F6240041CFD7 /* SampleMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				DC35CEC21BCC29CE0008B6C5 /* ReadMe.rtf */,
+				DC4462B41BCC4D0300F4CEE5 /* ReadMe.txt */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				DCA96A781BC6F6250041CFD7 /* LaunchScreen.storyboard in Resources */,
 				DCA96A751BC6F6250041CFD7 /* Assets.xcassets in Resources */,
 				DC35CEC31BCC29CE0008B6C5 /* ReadMe.rtf in Resources */,
+				DC4462B51BCC4D0300F4CEE5 /* ReadMe.txt in Resources */,
 				DCA96A731BC6F6250041CFD7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
