@@ -30,8 +30,15 @@ Execute the following in order:
 
 REST server
 1.	On the machine where the iOS simulator will execute, open a terminal window and go to directory where the django app is installed / decompressed.
-2.	Execute startrestserver.sh script (this step must be accomplished before running iOS client)
-3.	Server should be available at http://localhost:8000/ for browsing
+2.	Install Python libraries (http://www.django-rest-framework.org)
+a.	pip install -U django
+b.	pip install -U djangorestframework
+c.	pip install -U markdown
+d.	pip install -U django-filter
+e.	pip install -U django-guardian
+3.	Execute at the shell from the directory where the 'manage.py' exists: 'python ./manage.py runserver'
+a.	to run at a different ip: 'python ./manage.py runserver <server>:<port>'
+5.	Server should be available at http://localhost:8000/ for browsing if default server:port settings were used.
 
 iOS Client
 1.	Build and execute XCode project in simulator (or device but untested on device).
@@ -47,6 +54,7 @@ Unimplemented Features
 •	Login screen could use more polish and improvements (see below).
 •	Launch screen is basic and could use improvements.
 •	Error handling is minimal and should be improved in future release.
+•	ingest movie reviews from requirement REST service to this sample service.  Can be accomplished through REST keymap in NSManagedObject
 
 iOS Client Issues
 •	iOS client only confirmed on simulator (iPhone 6s & 6s plus simulator).
@@ -64,6 +72,8 @@ DJango / Python REST server
 
 Code cleanup
 •	Opportunities exist to clean up and normalize portions of codebase into common methods and primitives to reduce amount of code and increase manageability (following rules of best practice).
+
+More notes with diagram may be added later
 
 
 
